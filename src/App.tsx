@@ -1,9 +1,9 @@
-import { Test } from '@/components/button'
+import { Generate } from '@/pages/generate'
 
 function App() {
     return (
-        <div className="w-full h-11 bg-slate-500">
-            <Test />
+        <div className="flex justify-center items-center">
+            <Generate />
         </div>
     )
 }
