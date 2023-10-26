@@ -1,21 +1,8 @@
+import { getRandomNumberBetween, shuffle, wait } from '@/utils'
 import { useCallback, useRef, useState } from 'react'
 
 const items = ['🍭', '❌', '⛄️', '🦄', '🍌', '💩', '👻', '😻', '💵', '🤡', '🦖', '🍎', '😂', '🖕']
 const BOX_STYLE = 'flex justify-center items-center text-5xl'
-
-const shuffle = ([...arr]) => {
-    let m = arr.length
-    while (m) {
-        const i = Math.floor(Math.random() * m--)
-        ;[arr[m], arr[i]] = [arr[i], arr[m]]
-    }
-    return arr
-}
-
-const getRandomNumberBetween = (min: number, max: number) =>
-    Math.floor(Math.random() * (max - min + 1) + min)
-
-const wait = (duration: number) => new Promise((resolve) => setTimeout(resolve, duration))
 
 export const useRandomSelector = (animationDurationS = 1) => {
     const doorsRef = useRef<Array<HTMLDivElement | null>>([])
@@ -51,14 +38,14 @@ export const useRandomSelector = (animationDurationS = 1) => {
             door.replaceChild(newBoxes, boxes)
         })
 
-        // random timers
-        for (const door of doors) {
-            if (!door) continue
+        doors.forEach(async (door) => {
+            if (door) {
+                await wait(getRandomNumberBetween(50, 300))
+                const boxes = door.children[0] as HTMLDivElement
+                boxes.style.transform = 'translateY(0)'
+            }
+        })
 
-            const boxes = door.children[0] as HTMLDivElement
-            boxes.style.transform = 'translateY(0)'
-            await wait(getRandomNumberBetween(50, 300))
-        }
         setPrevWinner(winners)
         setTimeout(() => setIsSpinning(false), animationDurationS * 1000)
     }, [animationDurationS, prevWinner])
