@@ -1,12 +1,8 @@
-import { useRef, useState } from 'react'
-
-type RandomSelectorProps = {
-    test: string
-}
+import { useCallback, useRef, useState } from 'react'
 
 const items = ['🍭', '❌', '⛄️', '🦄', '🍌', '💩', '👻', '😻', '💵', '🤡', '🦖', '🍎', '😂', '🖕']
 
-function shuffle([...arr]) {
+const shuffle = ([...arr]) => {
     let m = arr.length
     while (m) {
         const i = Math.floor(Math.random() * m--)
@@ -22,12 +18,12 @@ export const createBox = () => {
     return newBox
 }
 
-export const RandomSelector = ({ test }: RandomSelectorProps) => {
+export const useRandomSelector = () => {
     const doorsRef = useRef<Array<HTMLDivElement | null>>([])
     const [isSpinning, setIsSpinning] = useState(false)
     const [prevWinner, setPrevWinner] = useState<string[]>([])
 
-    const spin = async () => {
+    const spin = useCallback(async () => {
         const doors = doorsRef.current
         setIsSpinning(true)
         const winners: string[] = []
@@ -63,22 +59,32 @@ export const RandomSelector = ({ test }: RandomSelectorProps) => {
         }
         setPrevWinner(winners)
         setTimeout(() => setIsSpinning(false), 2000)
-    }
+    }, [prevWinner])
 
-    return (
-        <>
-            <div className="flex gap-2">
-                {Array.from(Array(4)).map((_, index) => (
-                    <div
-                        ref={(el) => (doorsRef.current[index] = el)}
-                        className="w-full bg-white/60 aspect-[5/7] overflow-hidden"
-                    >
-                        <div className="flex justify-center items-center w-full h-full">
-                            <div className="flex justify-center items-center text-5xl">❓</div>
+    const RandomSelector = useCallback(
+        () => (
+            <>
+                <div className="flex gap-2">
+                    {Array.from(Array(4)).map((_, index) => (
+                        <div
+                            key={index}
+                            ref={(el) => (doorsRef.current[index] = el)}
+                            className="w-full bg-white/60 aspect-[5/7] overflow-hidden"
+                        >
+                            <div className="flex justify-center items-center w-full h-full">
+                                <div className="flex justify-center items-center text-5xl">❓</div>
+                            </div>
                         </div>
-                    </div>
-                ))}
-            </div>
-        </>
+                    ))}
+                </div>
+            </>
+        ),
+        []
     )
+
+    return {
+        isSpinning,
+        spin,
+        RandomSelector,
+    }
 }
