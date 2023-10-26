@@ -2,6 +2,7 @@ import { getRandomNumberBetween, shuffle, wait } from '@/utils'
 import { useCallback, useRef, useState } from 'react'
 
 const items = ['🍭', '❌', '⛄️', '🦄', '🍌', '💩', '👻', '😻', '💵', '🤡', '🦖', '🍎', '😂', '🖕']
+const DEFAULT_ITEM = '❓'
 const BOX_STYLE = 'flex justify-center items-center text-5xl'
 
 export const useRandomSelector = (animationDurationS = 1) => {
@@ -18,7 +19,7 @@ export const useRandomSelector = (animationDurationS = 1) => {
             if (!door) return
             const boxes = door.children[0]
             const newBoxes = document.createElement('div')
-            const pool = [prevWinner[index] ?? '❓']
+            const pool = [prevWinner[index] ?? DEFAULT_ITEM]
 
             pool.push(...shuffle(items))
             winners.push(pool.at(-1)!)
@@ -39,11 +40,11 @@ export const useRandomSelector = (animationDurationS = 1) => {
         })
 
         doors.forEach(async (door) => {
-            if (door) {
-                await wait(getRandomNumberBetween(50, 300))
-                const boxes = door.children[0] as HTMLDivElement
-                boxes.style.transform = 'translateY(0)'
-            }
+            if (!door) return
+
+            await wait(getRandomNumberBetween(50, 300))
+            const boxes = door.children[0] as HTMLDivElement
+            boxes.style.transform = 'translateY(0)'
         })
 
         setPrevWinner(winners)
@@ -52,21 +53,19 @@ export const useRandomSelector = (animationDurationS = 1) => {
 
     const RandomSelector = useCallback(
         () => (
-            <>
-                <div className="flex gap-2">
-                    {Array.from(Array(4)).map((_, index) => (
-                        <div
-                            key={index}
-                            ref={(el) => (doorsRef.current[index] = el)}
-                            className="w-full bg-white/60 aspect-[5/7] overflow-hidden"
-                        >
-                            <div className="flex justify-center items-center w-full h-full">
-                                <div className={BOX_STYLE}>❓</div>
-                            </div>
+            <div className="flex gap-2">
+                {Array.from(Array(4)).map((_, index) => (
+                    <div
+                        key={index}
+                        ref={(el) => (doorsRef.current[index] = el)}
+                        className="w-full bg-white/60 aspect-[5/7] overflow-hidden"
+                    >
+                        <div className="flex justify-center items-center w-full h-full">
+                            <div className={BOX_STYLE}>{DEFAULT_ITEM}</div>
                         </div>
-                    ))}
-                </div>
-            </>
+                    </div>
+                ))}
+            </div>
         ),
         []
     )
