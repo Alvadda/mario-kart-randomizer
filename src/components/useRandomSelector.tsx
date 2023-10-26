@@ -1,6 +1,7 @@
 import { useCallback, useRef, useState } from 'react'
 
 const items = ['🍭', '❌', '⛄️', '🦄', '🍌', '💩', '👻', '😻', '💵', '🤡', '🦖', '🍎', '😂', '🖕']
+const BOX_STYLE = 'flex justify-center items-center text-5xl'
 
 const shuffle = ([...arr]) => {
     let m = arr.length
@@ -11,14 +12,12 @@ const shuffle = ([...arr]) => {
     return arr
 }
 
-export const createBox = () => {
-    const newBox = document.createElement('div')
-    newBox.className = 'transition-transform ease-in-out duration-1000'
+const getRandomNumberBetween = (min: number, max: number) =>
+    Math.floor(Math.random() * (max - min + 1) + min)
 
-    return newBox
-}
+const wait = (duration: number) => new Promise((resolve) => setTimeout(resolve, duration))
 
-export const useRandomSelector = () => {
+export const useRandomSelector = (animationDurationS = 1) => {
     const doorsRef = useRef<Array<HTMLDivElement | null>>([])
     const [isSpinning, setIsSpinning] = useState(false)
     const [prevWinner, setPrevWinner] = useState<string[]>([])
@@ -31,8 +30,9 @@ export const useRandomSelector = () => {
         doors.forEach((door, index) => {
             if (!door) return
             const boxes = door.children[0]
-            const newBoxes = createBox()
+            const newBoxes = document.createElement('div')
             const pool = [prevWinner[index] ?? '❓']
+
             pool.push(...shuffle(items))
             winners.push(pool.at(-1)!)
 
@@ -44,22 +44,24 @@ export const useRandomSelector = () => {
                 box.textContent = pool[i]
                 newBoxes.appendChild(box)
             }
-            newBoxes.style.transitionDuration = `1s`
+
+            newBoxes.style.transitionDuration = `${animationDurationS}s`
             newBoxes.style.transform = `translateY(-${door.clientHeight * (pool.length - 1)}px)`
+
             door.replaceChild(newBoxes, boxes)
         })
 
+        // random timers
         for (const door of doors) {
             if (!door) continue
 
             const boxes = door.children[0] as HTMLDivElement
-            const duration = 1
             boxes.style.transform = 'translateY(0)'
-            await new Promise((resolve) => setTimeout(resolve, duration * 100))
+            await wait(getRandomNumberBetween(50, 300))
         }
         setPrevWinner(winners)
-        setTimeout(() => setIsSpinning(false), 2000)
-    }, [prevWinner])
+        setTimeout(() => setIsSpinning(false), animationDurationS * 1000)
+    }, [animationDurationS, prevWinner])
 
     const RandomSelector = useCallback(
         () => (
@@ -72,7 +74,7 @@ export const useRandomSelector = () => {
                             className="w-full bg-white/60 aspect-[5/7] overflow-hidden"
                         >
                             <div className="flex justify-center items-center w-full h-full">
-                                <div className="flex justify-center items-center text-5xl">❓</div>
+                                <div className={BOX_STYLE}>❓</div>
                             </div>
                         </div>
                     ))}

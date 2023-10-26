@@ -6,18 +6,11 @@ type PlayerProps = {
 }
 
 export const Player = ({ name }: PlayerProps) => {
-    const { RandomSelector, isSpinning, spin } = useRandomSelector()
+    const { RandomSelector, isSpinning, spin } = useRandomSelector(2)
 
     return (
         <div className="w-full flex flex-col gap-2">
-            <button
-                className="bg-green-500 disabled:bg-red-700"
-                onClick={spin}
-                disabled={isSpinning}
-            >
-                spin
-            </button>
-            <PlayerBanner name={name} />
+            <PlayerBanner name={name} spin={spin} isSpinning={isSpinning} />
             <RandomSelector />
         </div>
     )
