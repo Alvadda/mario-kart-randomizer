@@ -1,10 +1,11 @@
-import { Generate } from '@/pages/generate'
+import { MainContainer } from '@/layout/mainContainer'
+import { Randomizer } from '@/pages/randomizer'
 
 function App() {
     return (
-        <div className="flex justify-center items-center">
-            <Generate />
-        </div>
+        <MainContainer>
+            <Randomizer />
+        </MainContainer>
     )
 }
 

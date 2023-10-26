@@ -6,7 +6,7 @@ export const PlayerBanner = ({ name }: PlayerBannerProps) => {
     return (
         <div className="flex h-8">
             <PlayerBannerFlag flip />
-            <div className="h-full w-full bg-black opacity-50">
+            <div className="h-full w-full bg-black/50 text-white px-4 flex items-center capitalize">
                 <span>{name}</span>
             </div>
             <PlayerBannerFlag />
