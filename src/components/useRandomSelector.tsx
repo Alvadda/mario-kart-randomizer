@@ -1,28 +1,44 @@
 import { getRandomNumberBetween, shuffle, wait } from '@/utils'
-import { imgs, ImgObj } from '@/utils/imgHelper'
+import { images, ImgObjArray } from '@/utils/imgHelper'
 import { useCallback, useRef, useState } from 'react'
 
-const items = imgs.driver
 const DEFAULT_ITEM = '❓'
 const BOX_STYLE = 'flex justify-center items-center text-5xl'
+
+const getImagTypeToIndex = (idx: number) => {
+    switch (idx) {
+        case 0:
+            return images.driver
+        case 1:
+            return [...images.vehicle.bikes, ...images.vehicle.cars]
+        case 2:
+            return images.tires
+        case 3:
+            return images.gliders
+        default:
+            return images.driver
+    }
+}
 
 export const useRandomSelector = (animationDurationS = 1) => {
     const doorsRef = useRef<Array<HTMLDivElement | null>>([])
     const [isSpinning, setIsSpinning] = useState(false)
-    const [prevWinner, setPrevWinner] = useState<ImgObj>([])
+    const [prevWinner, setPrevWinner] = useState<ImgObjArray>([])
 
     const spin = useCallback(async () => {
         const doors = doorsRef.current
         setIsSpinning(true)
-        const winners: ImgObj = []
+        const winners: ImgObjArray = []
 
         doors.forEach((door, index) => {
             if (!door) return
+
+            const doorImages = getImagTypeToIndex(index)
             const boxes = door.children[0]
             const newBoxes = document.createElement('div')
-            const pool = [prevWinner[index] ?? imgs.driver[0]]
+            const pool = [prevWinner[index] ?? doorImages[0]]
 
-            pool.push(...shuffle(items))
+            pool.push(...shuffle(doorImages))
             winners.push(pool.at(-1)!)
 
             for (let i = pool.length - 1; i >= 0; i--) {

@@ -19,5 +19,5 @@ const imgsSchema = z.object({
     }),
 })
 
-export const imgs = imgsSchema.parse(imgsJson)
-export type ImgObj = z.infer<typeof imgObjSchema>
+export const images = imgsSchema.parse(imgsJson)
+export type ImgObjArray = z.infer<typeof imgObjSchema>
