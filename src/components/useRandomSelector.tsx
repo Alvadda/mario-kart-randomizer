@@ -1,35 +1,38 @@
 import { getRandomNumberBetween, shuffle, wait } from '@/utils'
+import { imgs, ImgObj } from '@/utils/imgHelper'
 import { useCallback, useRef, useState } from 'react'
 
-const items = ['🍭', '❌', '⛄️', '🦄', '🍌', '💩', '👻', '😻', '💵', '🤡', '🦖', '🍎', '😂', '🖕']
+const items = imgs.driver
 const DEFAULT_ITEM = '❓'
 const BOX_STYLE = 'flex justify-center items-center text-5xl'
 
 export const useRandomSelector = (animationDurationS = 1) => {
     const doorsRef = useRef<Array<HTMLDivElement | null>>([])
     const [isSpinning, setIsSpinning] = useState(false)
-    const [prevWinner, setPrevWinner] = useState<string[]>([])
+    const [prevWinner, setPrevWinner] = useState<ImgObj>([])
 
     const spin = useCallback(async () => {
         const doors = doorsRef.current
         setIsSpinning(true)
-        const winners: string[] = []
+        const winners: ImgObj = []
 
         doors.forEach((door, index) => {
             if (!door) return
             const boxes = door.children[0]
             const newBoxes = document.createElement('div')
-            const pool = [prevWinner[index] ?? DEFAULT_ITEM]
+            const pool = [prevWinner[index] ?? imgs.driver[0]]
 
             pool.push(...shuffle(items))
             winners.push(pool.at(-1)!)
 
             for (let i = pool.length - 1; i >= 0; i--) {
-                const box = document.createElement('div')
-                box.className = 'box flex justify-center items-center text-5xl'
+                const box = document.createElement('img')
+                box.className = 'box flex justify-center items-center object-contain'
                 box.style.width = door.clientWidth + 'px'
                 box.style.height = door.clientHeight + 'px'
-                box.textContent = pool[i]
+                // box.textContent = pool[i]
+                box.src = pool[i].url
+
                 newBoxes.appendChild(box)
             }
 
