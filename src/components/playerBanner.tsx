@@ -1,5 +1,6 @@
 import { ArrowPathIcon } from '@heroicons/react/20/solid'
 import { cn } from '@/libs/tw'
+import { StealthTextInput } from '@/components/stealthTextInput'
 
 type PlayerBannerProps = {
     name: string
@@ -12,7 +13,7 @@ export const PlayerBanner = ({ name, spin, isSpinning }: PlayerBannerProps) => {
         <div className="flex h-8">
             <PlayerBannerFlag flip />
             <div className="h-full w-full bg-black/50 text-white px-4 flex items-center justify-between capitalize">
-                <span>{name}</span>
+                <StealthTextInput placeholder={name} className="placeholder-current" />
                 <button className="px-2 py-4" onClick={spin} disabled={isSpinning}>
                     <ArrowPathIcon
                         className={cn(
