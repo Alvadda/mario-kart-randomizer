@@ -1,24 +1,6 @@
-import { getRandomNumberBetween, shuffle, wait } from '@/utils'
-import { images, ImgObjArray } from '@/utils/imgHelper'
+import { shuffle, wait } from '@/utils'
+import { ImgObjArray, getImagTypeToIndex } from '@/utils/imgHelper'
 import { useCallback, useRef, useState } from 'react'
-
-const DEFAULT_ITEM = '❓'
-const BOX_STYLE = 'flex justify-center items-center text-5xl'
-
-const getImagTypeToIndex = (idx: number) => {
-    switch (idx) {
-        case 0:
-            return images.driver
-        case 1:
-            return [...images.vehicle.bikes, ...images.vehicle.cars]
-        case 2:
-            return images.tires
-        case 3:
-            return images.gliders
-        default:
-            return images.driver
-    }
-}
 
 export const useRandomSelector = (animationDurationS = 1) => {
     const doorsRef = useRef<Array<HTMLDivElement | null>>([])
@@ -36,20 +18,17 @@ export const useRandomSelector = (animationDurationS = 1) => {
             const doorImages = getImagTypeToIndex(index)
             const boxes = door.children[0]
             const newBoxes = document.createElement('div')
-            const pool = [prevWinner[index] ?? doorImages[0]]
-
-            pool.push(...shuffle(doorImages))
+            const pool = [prevWinner[index] ?? doorImages[0], ...shuffle(doorImages)]
             winners.push(pool.at(-1)!)
 
             for (let i = pool.length - 1; i >= 0; i--) {
-                const box = document.createElement('img')
-                box.className = 'box flex justify-center items-center object-contain'
-                box.style.width = door.clientWidth + 'px'
-                box.style.height = door.clientHeight + 'px'
-                // box.textContent = pool[i]
-                box.src = pool[i].url
+                const imgEl = document.createElement('img')
+                imgEl.className = 'flex justify-center items-center object-contain'
+                imgEl.style.width = door.clientWidth + 'px'
+                imgEl.style.height = door.clientHeight + 'px'
+                imgEl.src = pool[i].url
 
-                newBoxes.appendChild(box)
+                newBoxes.appendChild(imgEl)
             }
 
             newBoxes.style.transitionDuration = `${animationDurationS}s`
@@ -61,7 +40,7 @@ export const useRandomSelector = (animationDurationS = 1) => {
         doors.forEach(async (door) => {
             if (!door) return
 
-            await wait(getRandomNumberBetween(50, 300))
+            await wait(40)
             const boxes = door.children[0] as HTMLDivElement
             boxes.style.transform = 'translateY(0)'
         })
@@ -80,7 +59,7 @@ export const useRandomSelector = (animationDurationS = 1) => {
                         className="w-full bg-white/60 aspect-[5/7] overflow-hidden"
                     >
                         <div className="flex justify-center items-center w-full h-full">
-                            <div className={BOX_STYLE}>{DEFAULT_ITEM}</div>
+                            <div className="flex justify-center items-center text-5xl">❓</div>
                         </div>
                     </div>
                 ))}

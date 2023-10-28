@@ -1,3 +1,6 @@
+import { cn } from '@/libs/tw'
+import { ArrowPathIcon } from '@heroicons/react/20/solid'
+
 type PlayerBannerProps = {
     name: string
     spin: () => void
@@ -15,7 +18,11 @@ export const PlayerBanner = ({ name, spin, isSpinning }: PlayerBannerProps) => {
                     onClick={spin}
                     disabled={isSpinning}
                 >
-                    &oplus;
+                    <ArrowPathIcon
+                        className={cn('h-6 w-6', {
+                            'animate-spin': isSpinning,
+                        })}
+                    />
                 </button>
             </div>
             <PlayerBannerFlag />

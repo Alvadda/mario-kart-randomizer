@@ -21,3 +21,17 @@ const imgsSchema = z.object({
 
 export const images = imgsSchema.parse(imgsJson)
 export type ImgObjArray = z.infer<typeof imgObjSchema>
+export const getImagTypeToIndex = (idx: number) => {
+    switch (idx) {
+        case 0:
+            return images.driver
+        case 1:
+            return [...images.vehicle.bikes, ...images.vehicle.cars]
+        case 2:
+            return images.tires
+        case 3:
+            return images.gliders
+        default:
+            return images.driver
+    }
+}
