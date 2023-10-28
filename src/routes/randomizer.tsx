@@ -24,9 +24,9 @@ export const Randomizer = () => {
     const spinAll = () => spinRegisterRef.current?.forEach((sr) => sr.spinF())
 
     return (
-        <div className="w-full h-full lg:justify-center gap-7 flex justify-between flex-col">
+        <div className="w-full h-full sm:justify-center gap-7 flex justify-between flex-col">
             <button onClick={() => spinAll()}>spin all</button>
-            <div className="h-full lg:h-fit w-full flex flex-col gap-5 justify-end lg:grid-cols-2 lg:grid">
+            <div className="h-full sm:h-fit w-full flex flex-col gap-5 justify-end sm:grid-cols-2 sm:grid">
                 <Player name="Player 1" registerSpin={registerSpinHandler} />
                 <Player name="Player 2" registerSpin={registerSpinHandler} />
                 <Player name="Player 3" registerSpin={registerSpinHandler} />
