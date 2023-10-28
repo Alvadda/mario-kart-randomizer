@@ -8,5 +8,8 @@
     "printWidth": 100,
     "useTabs": false,
     "proseWrap": "always",
-    "endOfLine": "auto"
+    "endOfLine": "auto",
+    "importOrder": ["^@/(.*)$", "^[./]"],
+    "importOrderSeparation": true,
+    "importOrderSortSpecifiers": true
 }

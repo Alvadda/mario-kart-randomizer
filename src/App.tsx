@@ -1,10 +1,15 @@
 import { MainContainer } from '@/layout/mainContainer'
-import { Randomizer } from '@/pages/randomizer'
+import { Route } from 'wouter'
+import { ROUTES, Home, Randomizer, Options } from '@/routes'
 
 function App() {
     return (
         <MainContainer>
-            <Randomizer />
+            <>
+                <Route path={ROUTES.HOME} component={Home} />
+                <Route path={ROUTES.RANDOM} component={Randomizer} />
+                <Route path={ROUTES.OPTIONS} component={Options} />
+            </>
         </MainContainer>
     )
 }
