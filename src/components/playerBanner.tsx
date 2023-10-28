@@ -1,4 +1,4 @@
-import { ArrowPathIcon } from '@heroicons/react/20/solid'
+import { ArrowPathIcon, Cog6ToothIcon } from '@heroicons/react/20/solid'
 import { cn } from '@/libs/tw'
 import { StealthTextInput } from '@/components/stealthTextInput'
 
@@ -14,14 +14,19 @@ export const PlayerBanner = ({ name, spin, isSpinning }: PlayerBannerProps) => {
             <PlayerBannerFlag flip />
             <div className="h-full w-full bg-black/50 text-white px-4 flex items-center justify-between capitalize">
                 <StealthTextInput placeholder={name} className="placeholder-current" />
-                <button className="px-4 py-4" onClick={spin} disabled={isSpinning}>
-                    <ArrowPathIcon
-                        className={cn(
-                            'h-6 w-6, transition duration-300',
-                            isSpinning && 'animate-spin opacity-50'
-                        )}
-                    />
-                </button>
+                <div className="flex gap-2">
+                    <button className="px-2 py-2" onClick={spin} disabled={isSpinning}>
+                        <ArrowPathIcon
+                            className={cn(
+                                'h-5 w-5, transition duration-300',
+                                isSpinning && 'animate-spin opacity-50'
+                            )}
+                        />
+                    </button>
+                    <button className="px-2 py-2">
+                        <Cog6ToothIcon className="h-5 w-5" />
+                    </button>
+                </div>
             </div>
             <PlayerBannerFlag />
         </div>
