@@ -56,7 +56,7 @@ export const useRandomSelector = (animationDurationS = 1) => {
                     <div
                         key={index}
                         ref={(el) => (doorsRef.current[index] = el)}
-                        className="w-full bg-white/60 aspect-[5/7] overflow-hidden"
+                        className="w-full bg-white/60 aspect-[5/7] overflow-hidden rounded-sm"
                     >
                         <div className="flex justify-center items-center w-full h-full">
                             <div className="flex justify-center items-center text-5xl">❓</div>

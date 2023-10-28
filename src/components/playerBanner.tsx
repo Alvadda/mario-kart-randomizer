@@ -1,5 +1,5 @@
-import { cn } from '@/libs/tw'
 import { ArrowPathIcon } from '@heroicons/react/20/solid'
+import { cn } from '@/libs/tw'
 
 type PlayerBannerProps = {
     name: string
@@ -13,15 +13,12 @@ export const PlayerBanner = ({ name, spin, isSpinning }: PlayerBannerProps) => {
             <PlayerBannerFlag flip />
             <div className="h-full w-full bg-black/50 text-white px-4 flex items-center justify-between capitalize">
                 <span>{name}</span>
-                <button
-                    className="px-2 py-4 disabled:opacity-50"
-                    onClick={spin}
-                    disabled={isSpinning}
-                >
+                <button className="px-2 py-4" onClick={spin} disabled={isSpinning}>
                     <ArrowPathIcon
-                        className={cn('h-6 w-6', {
-                            'animate-spin': isSpinning,
-                        })}
+                        className={cn(
+                            'h-6 w-6, transition duration-300',
+                            isSpinning && 'animate-spin opacity-50'
+                        )}
                     />
                 </button>
             </div>
