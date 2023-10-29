@@ -1,5 +1,6 @@
-import { create } from 'zustand'
 import { z } from 'zod'
+import { create } from 'zustand'
+
 import imgsJson from '@/utils/imgs.json'
 
 const itemSchema = z.object({
@@ -29,6 +30,15 @@ const mapItemsFromJsonToItemsByCategory = (jsonItems: ItemsJsonSchema): ItemsByC
     gliders: jsonItems.gliders,
 })
 
+export type Item = z.infer<typeof itemSchema>
+export type ItemCategory = keyof ItemsByCategory
+export type ItemsByCategory = {
+    driver: Item[]
+    vehicle: Item[]
+    tires: Item[]
+    gliders: Item[]
+}
+
 interface ItemStoreState {
     allItemsByCategory: ItemsByCategory
     deselectedItemIds: string[]
@@ -45,20 +55,10 @@ export const useItemStore = create<ItemStoreState>((set, get) => ({
     selectItem: (id: string) =>
         set((state) => ({
             ...state,
-            deselectedGliderIds: [...state.deselectedItemIds.filter((dId) => dId !== id)],
+            deselectedItemIds: [...state.deselectedItemIds.filter((dId) => dId !== id)],
         })),
-    getSelectedItemsByCategory: (category: keyof ItemsByCategory) => {
-        const items = get().allItemsByCategory[category]
-
-        return items.filter((item) => !get().deselectedItemIds.includes(item.id))
-    },
+    getSelectedItemsByCategory: (category: ItemCategory) =>
+        get().allItemsByCategory[category].filter(
+            (item) => !get().deselectedItemIds.includes(item.id)
+        ),
 }))
-
-export type Item = z.infer<typeof itemSchema>
-export type ItemCategory = keyof ItemsByCategory
-export type ItemsByCategory = {
-    driver: Item[]
-    vehicle: Item[]
-    tires: Item[]
-    gliders: Item[]
-}
