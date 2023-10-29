@@ -1,7 +1,9 @@
-import { Door } from '@/components/door'
+import { useCallback, useRef, useState } from 'react'
+
 import { Item, ItemCategory, useItemStore } from '@/stores/itemStore'
 import { shuffle, wait } from '@/utils'
-import { useCallback, useRef, useState } from 'react'
+
+import { Door } from './door'
 
 export const useRandomSelector = (animationDurationS = 1) => {
     const doorsRef = useRef<Array<HTMLDivElement | null>>([])

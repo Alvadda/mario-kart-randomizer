@@ -1,5 +1,6 @@
-import { ROUTES } from '@/routes'
 import { Link } from 'wouter'
+
+import { ROUTES } from '@/routes'
 
 export const Header = () => {
     return (

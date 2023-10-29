@@ -1,6 +1,7 @@
-import { PlayerBanner } from '@/components/playerBanner'
-import { useRandomSelector } from '@/components/useRandomSelector'
 import { useEffect } from 'react'
+
+import { PlayerBanner } from './playerBanner'
+import { useRandomSelector } from './useRandomSelector'
 
 type PlayerProps = {
     name: string

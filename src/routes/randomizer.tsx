@@ -1,6 +1,7 @@
+import { useRef } from 'react'
+
 import { Player } from '@/components/player'
 import { removeElementAt } from '@/utils'
-import { useRef } from 'react'
 
 type SpinRegister = {
     id: string
