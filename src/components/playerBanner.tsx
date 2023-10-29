@@ -1,6 +1,7 @@
 import { ArrowPathIcon, Cog6ToothIcon } from '@heroicons/react/20/solid'
-import { cn } from '@/libs/tw'
+
 import { StealthTextInput } from '@/components/stealthTextInput'
+import { cn } from '@/libs/tw'
 
 type PlayerBannerProps = {
     name: string

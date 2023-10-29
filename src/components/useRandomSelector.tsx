@@ -1,3 +1,4 @@
+import { Door } from '@/components/door'
 import { Item, ItemCategory, useItemStore } from '@/stores/itemStore'
 import { shuffle, wait } from '@/utils'
 import { useCallback, useRef, useState } from 'react'
@@ -68,23 +69,4 @@ export const useRandomSelector = (animationDurationS = 1) => {
         spin,
         RandomSelector,
     }
-}
-
-type DoorProps = {
-    itemCategory: ItemCategory
-    setRef: (el: HTMLDivElement | null) => void
-}
-
-export const Door = ({ itemCategory, setRef }: DoorProps) => {
-    return (
-        <div
-            ref={(el) => setRef(el)}
-            data-item-category={itemCategory}
-            className="w-full bg-white/60 aspect-[5/7] overflow-hidden rounded-sm"
-        >
-            <div className="flex justify-center items-center w-full h-full">
-                <div className="flex justify-center items-center text-5xl">❓</div>
-            </div>
-        </div>
-    )
 }
