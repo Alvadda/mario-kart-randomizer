@@ -1,21 +1,21 @@
 import { shuffle, wait } from '@/utils'
-import { ImgObjArray, getImagTypeToIndex } from '@/utils/imgHelper'
+import { Item, getItemsFromCategoryByIndex } from '@/utils/itemHelper'
 import { useCallback, useRef, useState } from 'react'
 
 export const useRandomSelector = (animationDurationS = 1) => {
     const doorsRef = useRef<Array<HTMLDivElement | null>>([])
     const [isSpinning, setIsSpinning] = useState(false)
-    const [prevWinner, setPrevWinner] = useState<ImgObjArray>([])
+    const [prevWinner, setPrevWinner] = useState<Item[]>([])
 
     const spin = useCallback(async () => {
         const doors = doorsRef.current
         setIsSpinning(true)
-        const winners: ImgObjArray = []
+        const winners: Item[] = []
 
         doors.forEach((door, index) => {
             if (!door) return
 
-            const doorImages = getImagTypeToIndex(index)
+            const doorImages = getItemsFromCategoryByIndex(index)
             const boxes = door.children[0]
             const newBoxes = document.createElement('div')
             const pool = [prevWinner[index] ?? doorImages[0], ...shuffle(doorImages)]
