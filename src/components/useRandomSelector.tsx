@@ -1,11 +1,12 @@
+import { Item, ItemCategory, useItemStore } from '@/stores/itemStore'
 import { shuffle, wait } from '@/utils'
-import { Item, getItemsFromCategoryByIndex } from '@/utils/itemHelper'
 import { useCallback, useRef, useState } from 'react'
 
 export const useRandomSelector = (animationDurationS = 1) => {
     const doorsRef = useRef<Array<HTMLDivElement | null>>([])
     const [isSpinning, setIsSpinning] = useState(false)
     const [prevWinner, setPrevWinner] = useState<Item[]>([])
+    const getSelectedItemsByCategory = useItemStore((state) => state.getSelectedItemsByCategory)
 
     const spin = useCallback(async () => {
         const doors = doorsRef.current
@@ -15,7 +16,8 @@ export const useRandomSelector = (animationDurationS = 1) => {
         doors.forEach((door, index) => {
             if (!door) return
 
-            const doorImages = getItemsFromCategoryByIndex(index)
+            const itemCategory = door.dataset.itemCategory as ItemCategory
+            const doorImages = getSelectedItemsByCategory(itemCategory)
             const boxes = door.children[0]
             const newBoxes = document.createElement('div')
             const pool = [prevWinner[index] ?? doorImages[0], ...shuffle(doorImages)]
@@ -47,22 +49,15 @@ export const useRandomSelector = (animationDurationS = 1) => {
 
         setPrevWinner(winners)
         setTimeout(() => setIsSpinning(false), animationDurationS * 1000)
-    }, [animationDurationS, prevWinner])
+    }, [animationDurationS, getSelectedItemsByCategory, prevWinner])
 
     const RandomSelector = useCallback(
         () => (
             <div className="flex gap-2">
-                {Array.from(Array(4)).map((_, index) => (
-                    <div
-                        key={index}
-                        ref={(el) => (doorsRef.current[index] = el)}
-                        className="w-full bg-white/60 aspect-[5/7] overflow-hidden rounded-sm"
-                    >
-                        <div className="flex justify-center items-center w-full h-full">
-                            <div className="flex justify-center items-center text-5xl">❓</div>
-                        </div>
-                    </div>
-                ))}
+                <Door itemCategory="driver" setRef={(el) => (doorsRef.current[0] = el)} />
+                <Door itemCategory="vehicle" setRef={(el) => (doorsRef.current[1] = el)} />
+                <Door itemCategory="tires" setRef={(el) => (doorsRef.current[2] = el)} />
+                <Door itemCategory="gliders" setRef={(el) => (doorsRef.current[3] = el)} />
             </div>
         ),
         []
@@ -73,4 +68,23 @@ export const useRandomSelector = (animationDurationS = 1) => {
         spin,
         RandomSelector,
     }
+}
+
+type DoorProps = {
+    itemCategory: ItemCategory
+    setRef: (el: HTMLDivElement | null) => void
+}
+
+export const Door = ({ itemCategory, setRef }: DoorProps) => {
+    return (
+        <div
+            ref={(el) => setRef(el)}
+            data-item-category={itemCategory}
+            className="w-full bg-white/60 aspect-[5/7] overflow-hidden rounded-sm"
+        >
+            <div className="flex justify-center items-center w-full h-full">
+                <div className="flex justify-center items-center text-5xl">❓</div>
+            </div>
+        </div>
+    )
 }

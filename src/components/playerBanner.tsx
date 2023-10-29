@@ -23,8 +23,8 @@ export const PlayerBanner = ({ name, spin, isSpinning }: PlayerBannerProps) => {
                     >
                         <ArrowPathIcon
                             className={cn(
-                                'h-5 w-5, transition duration-300 md:hover:scale-125',
-                                isSpinning && 'animate-spin opacity-50'
+                                'h-5 w-5, transition duration-300',
+                                isSpinning ? 'animate-spin opacity-50' : 'md:hover:scale-125'
                             )}
                         />
                     </button>
