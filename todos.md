@@ -7,7 +7,7 @@
 -   [ ] Scroll all player improving
 -   [ ] PWA
 -   [ ] Add SelectAll and DeselectAll Buttons
--   [ ] Add Player name to Modal title
--   [ ] Refactor PlayerId drilling
+-   [x] Add Player name to Modal title
+-   [x] Refactor PlayerId drilling
 -   [ ] Store persisting local storage
 -   [ ]
