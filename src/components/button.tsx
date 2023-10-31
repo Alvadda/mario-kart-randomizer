@@ -11,8 +11,8 @@ export const Button = ({ icon, className, children, ...rest }: ButtonProps) => {
         <button
             className={cn(
                 className,
-                'py-2 px-4 bg-black/50  disabled:bg-black/30 rounded-sm',
-                'flex gap-4 justify-center items-center',
+                'py-1 px-2 md:py-2 md:px-4 bg-black/50  disabled:bg-black/30 rounded-sm',
+                'flex gap-2 md:gap-4  justify-center items-center',
                 'transition duration-300'
             )}
             {...rest}
