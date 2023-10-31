@@ -2,6 +2,7 @@ import { ArrowPathIcon } from '@heroicons/react/24/solid'
 import { useRef } from 'react'
 
 import { Button } from '@/components/button'
+import { FlagWrapper } from '@/components/flagWrapper'
 import { Player } from '@/components/player'
 import { cn } from '@/libs/tw'
 import { PlayerId } from '@/stores/itemStore'
@@ -30,13 +31,15 @@ export const Randomizer = () => {
 
     return (
         <div className="w-full h-full sm:justify-center gap-3 flex justify-between flex-col">
-            <div className="w-full flex justify-end">
-                <Button
-                    icon={<ArrowPathIcon className={cn('h-5 w-5')} />}
-                    onClick={() => spinAll()}
-                >
-                    spin all
-                </Button>
+            <div className="w-full flex">
+                <FlagWrapper>
+                    <Button
+                        icon={<ArrowPathIcon className={cn('h-5 w-5')} />}
+                        onClick={() => spinAll()}
+                    >
+                        spin all
+                    </Button>
+                </FlagWrapper>
             </div>
 
             <div className="h-full sm:h-fit w-full flex flex-col gap-5 justify-end sm:grid-cols-2 sm:grid">

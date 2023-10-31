@@ -1,4 +1,4 @@
-export const PlayerBannerFlag = ({ flip = false }: { flip?: boolean }) => {
+export const Flag = ({ flip = false }: { flip?: boolean }) => {
     return (
         <div
             className={`grid grid-rows-4 grid-cols-4 h-full aspect-square  ${
