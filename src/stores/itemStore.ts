@@ -1,5 +1,6 @@
 import { z } from 'zod'
 import { create } from 'zustand'
+import { persist } from 'zustand/middleware'
 
 import imgsJson from '@/utils/imgs.json'
 
@@ -58,48 +59,59 @@ interface ItemStoreState {
     getSelectedItemsForPlayerByCategory: (playerId: PlayerId, category: ItemCategory) => Item[]
 }
 
-export const useItemStore = create<ItemStoreState>((set, get) => ({
-    allItemsByCategory: mapItemsFromJsonToItemsByCategory(itemFromJson),
-    deselectedItemIds: [],
-    deselectedPlayerItemIds: {
-        0: [],
-        1: [],
-        2: [],
-        3: [],
-    },
-    deselectItem: (id: string) =>
-        set((state) => ({ ...state, deselectedItemIds: [...state.deselectedItemIds, id] })),
-    deselectPlayerItem: (playerId: PlayerId, itemId: string) =>
-        set((state) => ({
-            ...state,
+export const useItemStore = create<ItemStoreState>()(
+    persist(
+        (set, get) => ({
+            allItemsByCategory: mapItemsFromJsonToItemsByCategory(itemFromJson),
+            deselectedItemIds: [],
             deselectedPlayerItemIds: {
-                ...state.deselectedPlayerItemIds,
-                [playerId]: [...state.deselectedPlayerItemIds[playerId], itemId],
+                0: [],
+                1: [],
+                2: [],
+                3: [],
             },
-        })),
-    selectItem: (id: string) =>
-        set((state) => ({
-            ...state,
-            deselectedItemIds: [...state.deselectedItemIds.filter((dId) => dId !== id)],
-        })),
-    selectPlayerItem: (playerId: PlayerId, itemId: string) =>
-        set((state) => ({
-            ...state,
-            deselectedPlayerItemIds: {
-                ...state.deselectedPlayerItemIds,
-                [playerId]: state.deselectedPlayerItemIds[playerId].filter((dId) => dId !== itemId),
-            },
-        })),
-    getAvailableItemsByCategory: (
-        category: ItemCategory // rename to availableItemsByCategory
-    ) =>
-        get().allItemsByCategory[category].filter(
-            (item) => !get().deselectedItemIds.includes(item.id)
-        ),
-    getSelectedItemsForPlayerByCategory: (playerId: PlayerId, category: ItemCategory) => {
-        const availableItemsByCategory = get().getAvailableItemsByCategory(category)
-        const deselectedPlayerItemIds = get().deselectedPlayerItemIds[playerId]
+            deselectItem: (id: string) =>
+                set((state) => ({ ...state, deselectedItemIds: [...state.deselectedItemIds, id] })),
+            deselectPlayerItem: (playerId: PlayerId, itemId: string) =>
+                set((state) => ({
+                    ...state,
+                    deselectedPlayerItemIds: {
+                        ...state.deselectedPlayerItemIds,
+                        [playerId]: [...state.deselectedPlayerItemIds[playerId], itemId],
+                    },
+                })),
+            selectItem: (id: string) =>
+                set((state) => ({
+                    ...state,
+                    deselectedItemIds: [...state.deselectedItemIds.filter((dId) => dId !== id)],
+                })),
+            selectPlayerItem: (playerId: PlayerId, itemId: string) =>
+                set((state) => ({
+                    ...state,
+                    deselectedPlayerItemIds: {
+                        ...state.deselectedPlayerItemIds,
+                        [playerId]: state.deselectedPlayerItemIds[playerId].filter(
+                            (dId) => dId !== itemId
+                        ),
+                    },
+                })),
+            getAvailableItemsByCategory: (
+                category: ItemCategory // rename to availableItemsByCategory
+            ) =>
+                get().allItemsByCategory[category].filter(
+                    (item) => !get().deselectedItemIds.includes(item.id)
+                ),
+            getSelectedItemsForPlayerByCategory: (playerId: PlayerId, category: ItemCategory) => {
+                const availableItemsByCategory = get().getAvailableItemsByCategory(category)
+                const deselectedPlayerItemIds = get().deselectedPlayerItemIds[playerId]
 
-        return availableItemsByCategory.filter((ai) => !deselectedPlayerItemIds.includes(ai.id))
-    },
-}))
+                return availableItemsByCategory.filter(
+                    (ai) => !deselectedPlayerItemIds.includes(ai.id)
+                )
+            },
+        }),
+        {
+            name: 'item-store',
+        }
+    )
+)

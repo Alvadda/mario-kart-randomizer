@@ -1,7 +1,7 @@
 ## Todos
 
 -   [x] Player options Logic
--   [ ] Refactor PlayerBanner
+-   [x] Refactor PlayerBanner
 -   [ ] Finish Header
 -   [ ] Scrolling only on container
 -   [ ] Scroll all player improving
@@ -9,5 +9,5 @@
 -   [ ] Add SelectAll and DeselectAll Buttons
 -   [x] Add Player name to Modal title
 -   [x] Refactor PlayerId drilling
--   [ ] Store persisting local storage
+-   [x] Store persisting local storage
 -   [ ]
