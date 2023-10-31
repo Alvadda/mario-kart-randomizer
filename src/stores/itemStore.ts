@@ -3,6 +3,7 @@ import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 
 import imgsJson from '@/utils/imgs.json'
+import { preloadImage } from '@/utils/preLoadImages'
 
 const itemSchema = z.object({
     id: z.string(),
@@ -24,6 +25,9 @@ const itemsJsonSchema = z.object({
 type ItemsJsonSchema = z.infer<typeof itemsJsonSchema>
 
 const itemFromJson = itemsJsonSchema.parse(imgsJson)
+
+preloadImage([...itemFromJson.driver.map((i) => i.url)])
+
 const mapItemsFromJsonToItemsByCategory = (jsonItems: ItemsJsonSchema): ItemsByCategory => ({
     driver: jsonItems.driver,
     vehicle: [...jsonItems.vehicle.bikes, ...jsonItems.vehicle.cars],

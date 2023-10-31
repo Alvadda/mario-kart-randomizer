@@ -6,7 +6,7 @@ type FlagWrapperProps = {
 
 export const FlagWrapper = ({ children }: FlagWrapperProps) => {
     return (
-        <div className="flex w-full">
+        <div className="flex w-full justify-center">
             <Flag flip />
             {children}
             <Flag />

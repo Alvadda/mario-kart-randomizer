@@ -30,19 +30,18 @@ export const Randomizer = () => {
     const spinAll = () => spinRegisterRef.current?.forEach((sr) => sr.spinF())
 
     return (
-        <div className="w-full h-full sm:justify-center gap-3 flex justify-between flex-col">
-            <div className="w-full flex">
+        <div className="w-full h-full flex flex-col gap-5">
+            <div className="w-full flex justify-center">
                 <FlagWrapper>
                     <Button
+                        aria-label="Randomize all player"
                         icon={<ArrowPathIcon className={cn('h-5 w-5')} />}
                         onClick={() => spinAll()}
-                    >
-                        spin all
-                    </Button>
+                    />
                 </FlagWrapper>
             </div>
 
-            <div className="h-full sm:h-fit w-full flex flex-col gap-5 justify-end sm:grid-cols-2 sm:grid">
+            <div className="h-fit w-full flex flex-col gap-5 justify-end sm:grid-cols-2 sm:grid">
                 <Player playerId={0} registerSpin={registerSpinHandler} />
                 <Player playerId={1} registerSpin={registerSpinHandler} />
                 <Player playerId={2} registerSpin={registerSpinHandler} />

@@ -26,7 +26,7 @@ export const ItemSelection = ({
                             src={item.url}
                             className={cn(
                                 'object-cover transition-all duration-300',
-                                isDeselected ? 'saturate-0 opacity-50' : 'hover:scale-105'
+                                isDeselected ? 'saturate-0 opacity-50' : 'md:hover:scale-105'
                             )}
                         />
                     </div>
