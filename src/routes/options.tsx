@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { useShallow } from 'zustand/react/shallow'
 
+import { ItemSelection } from '@/components/itemSelection'
 import { TabBar } from '@/components/tabBar'
-import { cn } from '@/libs/tw'
 import { ItemCategory, useItemStore } from '@/stores/itemStore'
 
 export const Options = () => {
@@ -16,9 +16,9 @@ export const Options = () => {
         }))
     )
 
-    const getIsItemDeselected = (id: string) => deselectedItemIds.includes(id)
+    const checkIsItemDeselected = (id: string) => deselectedItemIds.includes(id)
 
-    const handleClick = (id: string, isDeselected: boolean) => {
+    const handleItemClick = (id: string, isDeselected: boolean) => {
         return isDeselected ? selectItem(id) : deselectItem(id)
     }
 
@@ -29,26 +29,11 @@ export const Options = () => {
                 active={currentCategory}
                 onSelect={setCurrentCategory}
             />
-            <div className="w-full grid grid-cols-5 gap-2 md:grid-cols-10">
-                {allItemsByCategory[currentCategory].map((item) => {
-                    const isDeselected = getIsItemDeselected(item.id)
-                    return (
-                        <div
-                            key={item.id}
-                            className="bg-white/60 aspect-square w-full rounded-sm flex justify-center items-center transition-all duration-300"
-                            onClick={() => handleClick(item.id, isDeselected)}
-                        >
-                            <img
-                                src={item.url}
-                                className={cn(
-                                    'object-cover transition-all duration-300',
-                                    isDeselected && 'saturate-0 opacity-50'
-                                )}
-                            />
-                        </div>
-                    )
-                })}
-            </div>
+            <ItemSelection
+                items={allItemsByCategory[currentCategory]}
+                checkIsItemDeselected={checkIsItemDeselected}
+                onItemClick={handleItemClick}
+            />
         </div>
     )
 }
