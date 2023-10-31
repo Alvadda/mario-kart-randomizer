@@ -1,15 +1,17 @@
 import { useCallback, useRef, useState } from 'react'
 
-import { Item, ItemCategory, useItemStore } from '@/stores/itemStore'
+import { Item, ItemCategory, PlayerId, useItemStore } from '@/stores/itemStore'
 import { shuffle, wait } from '@/utils'
 
 import { Door } from './door'
 
-export const useRandomSelector = (animationDurationS = 1) => {
+export const useRandomSelector = (animationDurationS = 1, playerId: PlayerId) => {
     const doorsRef = useRef<Array<HTMLDivElement | null>>([])
     const [isSpinning, setIsSpinning] = useState(false)
     const [prevWinner, setPrevWinner] = useState<Item[]>([])
-    const getSelectedItemsByCategory = useItemStore((state) => state.getSelectedItemsByCategory)
+    const getSelectedItemsForPlayerByCategory = useItemStore(
+        (state) => state.getSelectedItemsForPlayerByCategory
+    )
 
     const spin = useCallback(async () => {
         const doors = doorsRef.current
@@ -20,7 +22,7 @@ export const useRandomSelector = (animationDurationS = 1) => {
             if (!door) return
 
             const itemCategory = door.dataset.itemCategory as ItemCategory
-            const doorImages = getSelectedItemsByCategory(itemCategory)
+            const doorImages = getSelectedItemsForPlayerByCategory(playerId, itemCategory)
             const boxes = door.children[0]
             const newBoxes = document.createElement('div')
             const pool = [prevWinner[index] ?? doorImages[0], ...shuffle(doorImages)]
@@ -52,7 +54,7 @@ export const useRandomSelector = (animationDurationS = 1) => {
 
         setPrevWinner(winners)
         setTimeout(() => setIsSpinning(false), animationDurationS * 1000)
-    }, [animationDurationS, getSelectedItemsByCategory, prevWinner])
+    }, [animationDurationS, getSelectedItemsForPlayerByCategory, playerId, prevWinner])
 
     const RandomSelector = useCallback(
         () => (

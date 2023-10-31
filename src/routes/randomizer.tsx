@@ -28,10 +28,10 @@ export const Randomizer = () => {
         <div className="w-full h-full sm:justify-center gap-7 flex justify-between flex-col">
             <button onClick={() => spinAll()}>spin all</button>
             <div className="h-full sm:h-fit w-full flex flex-col gap-5 justify-end sm:grid-cols-2 sm:grid">
-                <Player name="Player 1" registerSpin={registerSpinHandler} />
-                <Player name="Player 2" registerSpin={registerSpinHandler} />
-                <Player name="Player 3" registerSpin={registerSpinHandler} />
-                <Player name="Player 4" registerSpin={registerSpinHandler} />
+                <Player name="Player 1" playerId={0} registerSpin={registerSpinHandler} />
+                <Player name="Player 2" playerId={1} registerSpin={registerSpinHandler} />
+                <Player name="Player 3" playerId={2} registerSpin={registerSpinHandler} />
+                <Player name="Player 4" playerId={3} registerSpin={registerSpinHandler} />
             </div>
         </div>
     )
