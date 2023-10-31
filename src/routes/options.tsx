@@ -35,13 +35,13 @@ export const Options = () => {
                     return (
                         <div
                             key={item.id}
-                            className="bg-white/60 aspect-square w-full rounded-sm flex justify-center items-center"
+                            className="bg-white/60 aspect-square w-full rounded-sm flex justify-center items-center transition-all duration-300"
                             onClick={() => handleClick(item.id, isDeselected)}
                         >
                             <img
                                 src={item.url}
                                 className={cn(
-                                    'object-cover',
+                                    'object-cover transition-all duration-300',
                                     isDeselected && 'saturate-0 opacity-50'
                                 )}
                             />
