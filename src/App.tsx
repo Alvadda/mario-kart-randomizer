@@ -1,12 +1,12 @@
-import { MainContainer } from '@/layout/mainContainer'
 import { Route } from 'wouter'
-import { ROUTES, Home, Randomizer, Options } from '@/routes'
+
+import { MainContainer } from '@/layout/mainContainer'
+import { Options, ROUTES, Randomizer } from '@/routes'
 
 function App() {
     return (
         <MainContainer>
             <>
-                <Route path={ROUTES.HOME} component={Home} />
                 <Route path={ROUTES.RANDOM} component={Randomizer} />
                 <Route path={ROUTES.OPTIONS} component={Options} />
             </>
