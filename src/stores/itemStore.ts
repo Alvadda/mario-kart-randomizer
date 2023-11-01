@@ -2,38 +2,7 @@ import { z } from 'zod'
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 
-import imgsJson from '@/utils/imgs.json'
-import { preloadImage } from '@/utils/preLoadImages'
-
-const itemSchema = z.object({
-    id: z.string(),
-    url: z.string(),
-})
-
-const itemArraySchema = z.array(itemSchema)
-
-const itemsJsonSchema = z.object({
-    driver: itemArraySchema,
-    tires: itemArraySchema,
-    gliders: itemArraySchema,
-    vehicle: z.object({
-        cars: itemArraySchema,
-        bikes: itemArraySchema,
-    }),
-})
-
-type ItemsJsonSchema = z.infer<typeof itemsJsonSchema>
-
-const itemFromJson = itemsJsonSchema.parse(imgsJson)
-
-preloadImage([...itemFromJson.driver.map((i) => i.url)])
-
-const mapItemsFromJsonToItemsByCategory = (jsonItems: ItemsJsonSchema): ItemsByCategory => ({
-    driver: jsonItems.driver,
-    vehicle: [...jsonItems.vehicle.bikes, ...jsonItems.vehicle.cars],
-    tires: jsonItems.tires,
-    gliders: jsonItems.gliders,
-})
+import { itemSchema, mapItemsFromJsonToItemsByCategory } from '@/utils/imagesHandler'
 
 export type Item = z.infer<typeof itemSchema>
 export type ItemCategory = keyof ItemsByCategory
@@ -66,7 +35,7 @@ interface ItemStoreState {
 export const useItemStore = create<ItemStoreState>()(
     persist(
         (set, get) => ({
-            allItemsByCategory: mapItemsFromJsonToItemsByCategory(itemFromJson),
+            allItemsByCategory: mapItemsFromJsonToItemsByCategory(),
             deselectedItemIds: [],
             deselectedPlayerItemIds: {
                 0: [],
