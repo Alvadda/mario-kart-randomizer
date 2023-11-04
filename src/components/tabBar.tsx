@@ -18,6 +18,7 @@ export const TabBar = <T extends string>({ options, active, onSelect }: TabBarPr
                         active === option ? 'bg-black/60' : 'hover:bg-black/50'
                     )}
                     onClick={() => onSelect(option)}
+                    role="button"
                 >
                     {option}
                 </div>

@@ -35,8 +35,13 @@ export const Randomizer = () => {
                 <FlagWrapper>
                     <Button
                         aria-label="Randomize all player"
-                        icon={<ArrowPathIcon className={cn('h-5 w-5')} />}
+                        icon={
+                            <ArrowPathIcon
+                                className={cn('h-5 w-5 transition duration-300 hover:scale-125')}
+                            />
+                        }
                         onClick={() => spinAll()}
+                        round={false}
                     />
                 </FlagWrapper>
             </div>

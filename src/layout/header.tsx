@@ -7,7 +7,7 @@ export const Header = () => {
     const [location] = useLocation()
 
     return (
-        <header className="h-8 lg:h-10 w-full px-6 py-1 bg-blue-600 shadow-lg flex justify-between items-center">
+        <header className="h-8 lg:h-10 w-full px-4 py-1 bg-blue-600 shadow-lg flex justify-between items-center">
             <div className="flex gap-2 justify-center">
                 <img
                     src="/icon.png"

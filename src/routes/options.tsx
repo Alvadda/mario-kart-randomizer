@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useShallow } from 'zustand/react/shallow'
 
+import { ActionBar } from '@/components/actionBar'
 import { ItemSelection } from '@/components/itemSelection'
 import { TabBar } from '@/components/tabBar'
 import { ItemCategory, useItemStore } from '@/stores/itemStore'
@@ -24,11 +25,25 @@ export const Options = () => {
 
     return (
         <div className="w-full flex gap-2 flex-col">
-            <TabBar
-                options={['driver', 'vehicle', 'tires', 'gliders']}
-                active={currentCategory}
-                onSelect={setCurrentCategory}
-            />
+            <div className="w-full flex flex-col">
+                <TabBar
+                    options={['driver', 'vehicle', 'tires', 'gliders']}
+                    active={currentCategory}
+                    onSelect={setCurrentCategory}
+                />
+                <ActionBar
+                    actions={[
+                        {
+                            name: 'Select all',
+                            action: () => {},
+                        },
+                        {
+                            name: 'Deselect all',
+                            action: () => {},
+                        },
+                    ]}
+                />
+            </div>
             <ItemSelection
                 items={allItemsByCategory[currentCategory]}
                 checkIsItemDeselected={checkIsItemDeselected}

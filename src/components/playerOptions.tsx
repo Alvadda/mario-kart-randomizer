@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useShallow } from 'zustand/react/shallow'
 
+import { ActionBar } from '@/components/actionBar'
 import { ItemSelection } from '@/components/itemSelection'
 import { TabBar } from '@/components/tabBar'
 import { ItemCategory, PlayerId, useItemStore } from '@/stores/itemStore'
@@ -29,24 +30,24 @@ export const PlayerOptions = ({ playerId }: PlayerOptionsProps) => {
 
     return (
         <div className="w-full flex gap-2 flex-col">
-            <TabBar
-                options={['driver', 'vehicle', 'tires', 'gliders']}
-                active={currentCategory}
-                onSelect={setCurrentCategory}
-            />
-            <div className="w-full flex justify-between items-center mb-4 px-2">
-                <button
-                    // onClick={selectAllItems}
-                    className="flex-1 mr-2 px-3 py-1 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition"
-                >
-                    Select All
-                </button>
-                <button
-                    // onClick={deselectAllItems}
-                    className="flex-1 ml-2 px-3 py-1 bg-red-500 text-white rounded-md hover:bg-red-600 transition"
-                >
-                    Deselect All
-                </button>
+            <div className="w-full flex flex-col">
+                <TabBar
+                    options={['driver', 'vehicle', 'tires', 'gliders']}
+                    active={currentCategory}
+                    onSelect={setCurrentCategory}
+                />
+                <ActionBar
+                    actions={[
+                        {
+                            name: 'Select all',
+                            action: () => {},
+                        },
+                        {
+                            name: 'Deselect all',
+                            action: () => {},
+                        },
+                    ]}
+                />
             </div>
             <ItemSelection
                 items={getAvailableItemsByCategory(currentCategory)}
