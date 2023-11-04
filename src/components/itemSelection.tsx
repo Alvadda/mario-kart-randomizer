@@ -19,14 +19,15 @@ export const ItemSelection = ({
                 return (
                     <div
                         key={item.id}
-                        className="bg-white/60 aspect-square w-full rounded-sm flex justify-center items-center transition-all duration-300"
+                        className="bg-white/60 aspect-square w-full rounded-sm flex, justify-center items-center transition-all duration-300 group cursor-pointer"
                         onClick={() => onItemClick(item.id, isDeselected)}
+                        role="button"
                     >
                         <img
                             src={item.url}
                             className={cn(
                                 'object-cover transition-all duration-300',
-                                isDeselected ? 'saturate-0 opacity-50' : 'md:hover:scale-105'
+                                isDeselected ? 'saturate-0 opacity-50' : 'group-hover:md:scale-105'
                             )}
                         />
                     </div>

@@ -34,6 +34,20 @@ export const PlayerOptions = ({ playerId }: PlayerOptionsProps) => {
                 active={currentCategory}
                 onSelect={setCurrentCategory}
             />
+            <div className="w-full flex justify-between items-center mb-4 px-2">
+                <button
+                    // onClick={selectAllItems}
+                    className="flex-1 mr-2 px-3 py-1 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition"
+                >
+                    Select All
+                </button>
+                <button
+                    // onClick={deselectAllItems}
+                    className="flex-1 ml-2 px-3 py-1 bg-red-500 text-white rounded-md hover:bg-red-600 transition"
+                >
+                    Deselect All
+                </button>
+            </div>
             <ItemSelection
                 items={getAvailableItemsByCategory(currentCategory)}
                 checkIsItemDeselected={checkIsItemDeselected}
