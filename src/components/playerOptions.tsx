@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { useShallow } from 'zustand/react/shallow'
 
-import { ActionBar } from '@/components/actionBar'
 import { ItemSelection } from '@/components/itemSelection'
 import { TabBar } from '@/components/tabBar'
 import { ItemCategory, PlayerId, useItemStore } from '@/stores/itemStore'
@@ -42,18 +41,6 @@ export const PlayerOptions = ({ playerId }: PlayerOptionsProps) => {
                     options={['driver', 'vehicle', 'tires', 'gliders']}
                     active={currentCategory}
                     onSelect={setCurrentCategory}
-                />
-                <ActionBar
-                    actions={[
-                        {
-                            name: 'Select all',
-                            action: () => {},
-                        },
-                        {
-                            name: 'Deselect all',
-                            action: () => {},
-                        },
-                    ]}
                 />
             </div>
             <ItemSelection
