@@ -23,6 +23,9 @@ export const useRandomSelector = (animationDurationS = 1, playerId: PlayerId) =>
 
             const itemCategory = door.dataset.itemCategory as ItemCategory
             const doorImages = getSelectedItemsForPlayerByCategory(playerId, itemCategory)
+
+            if (doorImages.length < 1) return
+
             const boxes = door.children[0]
             const newBoxes = document.createElement('div')
             const pool = [prevWinner[index] ?? doorImages[0], ...shuffle(doorImages)]

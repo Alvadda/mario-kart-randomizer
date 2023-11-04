@@ -18,7 +18,9 @@
 -   [ ] Fix Category Naming
 -   [x] Add Right Font
 -   [ ] Add Number of Player Selection
+-   [ ] Implement user cant leave with no selection in any category
 
 ## Bugs
 
 -   [x] Pointer Cursor on Option item Icons
+-   [x] Fix Scrolling on no Selected item in category
