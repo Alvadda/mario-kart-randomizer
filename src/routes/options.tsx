@@ -8,19 +8,30 @@ import { ItemCategory, useItemStore } from '@/stores/itemStore'
 
 export const Options = () => {
     const [currentCategory, setCurrentCategory] = useState<ItemCategory>('driver')
-    const { allItemsByCategory, deselectedItemIds, selectItem, deselectItem } = useItemStore(
+    const {
+        allItemsByCategory,
+        deselectedItems,
+        selectItemByCategory,
+        deselectItemByCategory,
+        selectAllItemsByCategory,
+        deselectAllItemsByCategory,
+    } = useItemStore(
         useShallow((state) => ({
             allItemsByCategory: state.allItemsByCategory,
-            deselectedItemIds: state.deselectedItemIds,
-            selectItem: state.selectItem,
-            deselectItem: state.deselectItem,
+            deselectedItems: state.deselectedItems,
+            selectItemByCategory: state.selectItemByCategory,
+            deselectItemByCategory: state.deselectItemByCategory,
+            selectAllItemsByCategory: state.selectAllItemsByCategory,
+            deselectAllItemsByCategory: state.deselectAllItemsByCategory,
         }))
     )
 
-    const checkIsItemDeselected = (id: string) => deselectedItemIds.includes(id)
+    const checkIsItemDeselected = (id: string) => deselectedItems[currentCategory].includes(id)
 
     const handleItemClick = (id: string, isDeselected: boolean) => {
-        return isDeselected ? selectItem(id) : deselectItem(id)
+        return isDeselected
+            ? selectItemByCategory(currentCategory, id)
+            : deselectItemByCategory(currentCategory, id)
     }
 
     return (
@@ -35,11 +46,11 @@ export const Options = () => {
                     actions={[
                         {
                             name: 'Select all',
-                            action: () => {},
+                            action: () => selectAllItemsByCategory(currentCategory),
                         },
                         {
                             name: 'Deselect all',
-                            action: () => {},
+                            action: () => deselectAllItemsByCategory(currentCategory),
                         },
                     ]}
                 />

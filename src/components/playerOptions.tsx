@@ -12,20 +12,27 @@ type PlayerOptionsProps = {
 
 export const PlayerOptions = ({ playerId }: PlayerOptionsProps) => {
     const [currentCategory, setCurrentCategory] = useState<ItemCategory>('driver')
-    const { getAvailableItemsByCategory, deselectedItemIds, selectPlayerItem, deselectPlayerItem } =
-        useItemStore(
-            useShallow((state) => ({
-                getAvailableItemsByCategory: state.getAvailableItemsByCategory,
-                deselectedItemIds: state.deselectedPlayerItemIds[playerId],
-                selectPlayerItem: state.selectPlayerItem,
-                deselectPlayerItem: state.deselectPlayerItem,
-            }))
-        )
+    const {
+        getAvailableItemsByCategory,
+        deselectedPlayerItemsByCategory,
+        selectPlayerItemByCategory,
+        deselectPlayerItemByCategory,
+    } = useItemStore(
+        useShallow((state) => ({
+            getAvailableItemsByCategory: state.getAvailableItemsByCategory,
+            deselectedPlayerItemsByCategory: state.deselectedPlayerItemsByCategory[playerId],
+            selectPlayerItemByCategory: state.selectPlayerItemByCategory,
+            deselectPlayerItemByCategory: state.deselectPlayerItemByCategory,
+        }))
+    )
 
-    const checkIsItemDeselected = (id: string) => deselectedItemIds.includes(id)
+    const checkIsItemDeselected = (id: string) =>
+        deselectedPlayerItemsByCategory[currentCategory].includes(id)
 
     const handleItemClick = (id: string, isDeselected: boolean) => {
-        return isDeselected ? selectPlayerItem(playerId, id) : deselectPlayerItem(playerId, id)
+        return isDeselected
+            ? selectPlayerItemByCategory(currentCategory, playerId, id)
+            : deselectPlayerItemByCategory(currentCategory, playerId, id)
     }
 
     return (
