@@ -11,8 +11,9 @@ export const TabBar = <T extends string>({ options, active, onSelect }: TabBarPr
         <div className="w-full h-8 bg-black/40 border border-transparent rounded-tl-xl rounded-tr-xl overflow-hidden flex">
             {options.map((option) => (
                 <div
+                    key={option}
                     className={cn(
-                        'h-full w-full cursor-pointer',
+                        'h-full w-full cursor-pointer font-bold',
                         'flex justify-center items-center border-r last-of-type:border-none capitalize',
                         active === option ? 'bg-black/60' : 'hover:bg-black/50'
                     )}

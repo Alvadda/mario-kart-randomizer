@@ -7,7 +7,7 @@ function App() {
     return (
         <MainContainer>
             <>
-                <Route path={ROUTES.RANDOM} component={Randomizer} />
+                <Route path={ROUTES.HOME} component={Randomizer} />
                 <Route path={ROUTES.OPTIONS} component={Options} />
             </>
         </MainContainer>
