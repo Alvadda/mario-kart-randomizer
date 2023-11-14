@@ -3,10 +3,10 @@
 -   [x] Player options Logic
 -   [x] Refactor PlayerBanner
 -   [x] Finish Header
--   [ ] Scrolling only on container
+-   [x] Scrolling only on container
 -   [x] Scroll all player improving
 -   [ ] PWA
--   [ ] Add SelectAll and DeselectAll Buttons
+-   [x] Add SelectAll and DeselectAll Buttons
 -   [ ] Add Subcategory Functionality
 -   [x] Add Player name to Modal title
 -   [x] Refactor PlayerId drilling
