@@ -46,7 +46,7 @@ export const Randomizer = () => {
                 </FlagWrapper>
             </div>
 
-            <div className="h-fit w-full flex flex-col gap-5 justify-end sm:grid-cols-2 sm:grid">
+            <div className="h-fit w-full flex flex-col gap-5 sm:gap-12 justify-end sm:grid-cols-2 sm:grid">
                 <Player playerId={0} registerSpin={registerSpinHandler} />
                 <Player playerId={1} registerSpin={registerSpinHandler} />
                 <Player playerId={2} registerSpin={registerSpinHandler} />

@@ -36,13 +36,11 @@ export const PlayerOptions = ({ playerId }: PlayerOptionsProps) => {
 
     return (
         <div className="w-full flex gap-2 flex-col">
-            <div className="w-full flex flex-col">
-                <TabBar
-                    options={['driver', 'vehicle', 'tires', 'gliders']}
-                    active={currentCategory}
-                    onSelect={setCurrentCategory}
-                />
-            </div>
+            <TabBar
+                options={['driver', 'vehicle', 'tires', 'gliders']}
+                active={currentCategory}
+                onSelect={setCurrentCategory}
+            />
             <ItemSelection
                 items={getAvailableItemsByCategory(currentCategory)}
                 checkIsItemDeselected={checkIsItemDeselected}
