@@ -44,7 +44,7 @@ export const Player = ({ playerId, registerSpin }: PlayerProps) => {
                         placeholder={playerPlaceholderName}
                         value={playerName}
                         onChange={(e) => setPlayerName(e.currentTarget.value)}
-                        className="placeholder-current"
+                        className="placeholder-current focus:placeholder-gray-300"
                     />
                 }
                 playerActions={
