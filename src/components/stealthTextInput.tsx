@@ -8,7 +8,7 @@ export const StealthTextInput = ({ className, ...rest }: InputHTMLAttributes<HTM
     return (
         <input
             type="text"
-            className={cn('bg-transparent border-none outline-none font-bold', className)}
+            className={cn('bg-transparent border-none outline-none font-bold w-full', className)}
             {...rest}
         />
     )
