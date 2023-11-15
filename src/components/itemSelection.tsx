@@ -26,7 +26,7 @@ export const ItemSelection = ({
                         <img
                             src={item.url}
                             className={cn(
-                                'object-cover transition-all duration-300',
+                                'object-cover transition-all duration-300 h-full',
                                 isDeselected ? 'saturate-0 opacity-50' : 'group-hover:md:scale-105'
                             )}
                         />

@@ -15,7 +15,7 @@ export const Modal = ({ title, isOpen, onClose, children }: ModalProps) => {
         <>
             {isOpen &&
                 createPortal(
-                    <div className="h-screen w-screen bg-black/30 absolute top-0 p-6 md:p-8 text-white">
+                    <div className="h-full w-full bg-black/30 absolute top-0 p-6 md:p-8 text-white">
                         <div className="w-full h-full bg-blue-600 p-4 rounded-sm grid grid-rows-[max-content_1fr] gap-4">
                             <div className="w-full flex justify-between items-center">
                                 <h3 className="text-2xl">{title}</h3>

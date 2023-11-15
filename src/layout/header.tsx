@@ -23,13 +23,13 @@ export const Header = () => {
                 {location === ROUTES.OPTIONS && (
                     <Link href={ROUTES.HOME}>
                         <Link href={ROUTES.OPTIONS}>
-                            <ArrowLeftCircleIcon className="h-7 w-7 transition cursor-pointer duration-300 hover:scale-125" />
+                            <ArrowLeftCircleIcon className="h-7 w-7 transition cursor-pointer duration-300 sm:hover:scale-125" />
                         </Link>
                     </Link>
                 )}
                 {location === ROUTES.HOME && (
                     <Link href={ROUTES.OPTIONS}>
-                        <Cog6ToothIcon className="h-7 w-7 transition cursor-pointer duration-300 hover:scale-125" />
+                        <Cog6ToothIcon className="h-7 w-7 transition cursor-pointer duration-300 sm:hover:scale-125" />
                     </Link>
                 )}
             </div>
